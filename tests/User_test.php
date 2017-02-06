@@ -13,12 +13,6 @@ if($oUser instanceof User) {
 
 // TODO Test getters and setters.
 
-// function testId() {
-// 	$oUser->
-// 	$user->setName 
-// }
-
-
 function testAddress($city) {
 	$oUser = new User();
 	$oUser->setAddress($city);
