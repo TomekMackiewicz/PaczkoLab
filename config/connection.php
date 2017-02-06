@@ -1,16 +1,16 @@
 <?php
 
-require('class/User.php');
+require('../class/User.php');
 
-$host = "";
-$db = "";
-$user = "";
-$password = "";
+$host = "localhost";
+$db = "paczkolab";
+$user = "root";
+$password = "simone";
 
-$connection = new PDO('mysql:host=$host;dbname=$db', $user, $password);
+$connection = new PDO("mysql:$host;dbname=$db", $user, $password);
 
 // FAKE TO DELETE
-$connection = 'fake connection';
-User::$connection = $connection;
+// $connection = 'fake connection';
+// User::$connection = $connection;
 
 ?>
