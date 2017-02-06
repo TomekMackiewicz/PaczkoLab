@@ -16,6 +16,7 @@ class User {
 		$this->surname = "";
 		$this->credits = null;
 		$this->hashedPassword = "";
+	}
 
 	public function getId() {
 		return $this->id;
@@ -45,9 +46,22 @@ class User {
 		return true;		
 	}
 
-
+	public function getCredits() {
+		return $this->credits;
+	}
+	public function setCredits($credits) {
+		$this->credits = $credits;
+		return true;		
 	}
 
+	public function getHashedPassword() {
+		return $this->hashedPassword;
+	}
+	public function setHashedPassword($password) {
+		$hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+		$this->hashedPassword = $hashedPassword;
+		return true;		
+	}
 
 }
 
