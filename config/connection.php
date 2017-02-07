@@ -11,9 +11,6 @@ $connection = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $passwo
 	array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)
 );
 
-//var_dump($connection->errorCode());
-//var_dump($connection->errorInfo());
-
 User::$connection = $connection;
 
 ?>
