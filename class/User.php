@@ -64,12 +64,13 @@ class User {
 		return true;		
 	}
 
-	public function lodaFromDB($idUser) {
+	public function loadFromDB($idUser) {
 
-		$sql = "SELECT * FROM user WHERE id= $idUser";
+		$sql = "SELECT * FROM user WHERE id = ".$idUser;
 
-		if($sresult = Self::$connection->query($sql)) {
-			$row = $sresult->fetch_assoc();
+		if($result = Self::$connection->query($sql)) {
+
+			$row = $result->fetch();
 
 			$this->id = $row['id'];
 			$this->addressId = $row['address_id'];
@@ -79,6 +80,27 @@ class User {
 			$this->hashedPassword = $row['pass'];
 
 			// $row not true, because of a view.
+			return $row;
+
+		} else {
+
+			return false;
+
+		}
+	}
+
+	static public function loadAllFromDB() {
+
+		$sql = "SELECT * FROM user";
+
+		if($result = Self::$connection->query($sql)) {	
+
+			$row = [];
+			$n = 0;
+			foreach($result as $key => $value) {
+				$row[$key] = $value;
+			}
+
 			return $row;
 
 		} else {
