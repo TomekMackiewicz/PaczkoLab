@@ -3,7 +3,7 @@
 class User {
 
 	private $id;
-	private $address;
+	private $addressId;
 	private $name;
 	private $surname;
 	private $credits;
@@ -12,7 +12,7 @@ class User {
 
 	public function __construct() {
 		$this->id = -1;
-		$this->address = "";
+		$this->address = null;
 		$this->name = "";
 		$this->surname = "";
 		$this->credits = null;
@@ -23,10 +23,10 @@ class User {
 		return $this->id;
 	}
 
-	public function getAddress() {
+	public function getAddressId() {
 		return $this->address;
 	}
-	public function setAddress($address) {
+	public function setAddressId($address) {
 		$this->address = $address;
 		return true;
 	}
@@ -62,6 +62,30 @@ class User {
 		$hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 		$this->hashedPassword = $hashedPassword;
 		return true;		
+	}
+
+	public function lodaFromDB($idUser) {
+
+		$sql = "SELECT * FROM user WHERE id= $idUser";
+
+		if($sresult = Self::$connection->query($sql)) {
+			$row = $sresult->fetch_assoc();
+
+			$this->id = $row['id'];
+			$this->addressId = $row['address_id'];
+			$this->name = $row['name'];
+			$this->surname = $row['surname'];
+			$this->credits = $row['credits'];
+			$this->hashedPassword = $row['pass'];
+
+			// $row not true, because of a view.
+			return $row;
+
+		} else {
+
+			return false;
+
+		}
 	}
 
 }

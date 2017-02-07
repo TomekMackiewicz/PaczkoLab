@@ -1,29 +1,32 @@
 <?php
 
-// include('config/connection.php');
+include('config/connection.php');
 
-// var_dump($_SERVER['REQUEST_METHOD']);
+// Deklaracje zmiennych
+$request = "";
+$arrayRequest = [];
+$requestClass = "";
+
+// Parsowanie zapytania
+$request = $_SERVER['REQUEST_URI'];
+$arrayRequest = explode('/',$request);
+
+if(isset($arrayRequest[4])) {
+	$requestClass = $arrayRequest[4];
+} else {
+	echo "Nie podałeś nazwy klasy.";
+	die();
+}
 
 
 
-// if ($_SERVER['REQUEST_METHOD'] == 'GET'){
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
-    
+	if($_SERVER['REQUEST_URI'] == '/router.php/user/') {
 
-//     if($_SERVER['REQUEST_URI'] == '/CL/Warsztaty_dodatkowe/warsztaty_dodatkowe/Warsztaty_dodatkowe/router.php'){
+	}	else {
 
-//         $newUser = new User();
-
-        
-
-//         //echo 'Chodzi o usera';
-
-//     }else{
-
-//         //echo 'Nie chodzi o usera';
-
-//     }
-
-    
+	}    
 
 }
+

@@ -1,6 +1,6 @@
 <?php
 
-require('../class/User.php');
+require('class/User.php');
 
 $host = "localhost";
 $db = "paczkolab";
@@ -9,8 +9,7 @@ $password = "simone";
 
 $connection = new PDO("mysql:$host;dbname=$db", $user, $password);
 
-// FAKE TO DELETE
-// $connection = 'fake connection';
-// User::$connection = $connection;
+User::$connection = $connection;
+
 
 ?>
