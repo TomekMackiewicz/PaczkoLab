@@ -12,7 +12,7 @@ class User {
 
 	public function __construct() {
 		$this->id = -1;
-		$this->address = null;
+		$this->addressId = null;
 		$this->name = "";
 		$this->surname = "";
 		$this->credits = null;
@@ -27,7 +27,7 @@ class User {
 		return $this->address;
 	}
 	public function setAddressId($address) {
-		$this->address = $address;
+		$this->addressId = $address;
 		return true;
 	}
 
@@ -65,51 +65,83 @@ class User {
 	}
 
 	public function loadFromDB($idUser) {
-
 		$sql = "SELECT * FROM user WHERE id = ".$idUser;
-
 		if($result = Self::$connection->query($sql)) {
-
 			$row = $result->fetch();
-
 			$this->id = $row['id'];
 			$this->addressId = $row['address_id'];
 			$this->name = $row['name'];
 			$this->surname = $row['surname'];
 			$this->credits = $row['credits'];
 			$this->hashedPassword = $row['pass'];
-
 			// $row not true, because of a view.
 			return $row;
-
 		} else {
-
 			return false;
-
 		}
 	}
 
 	static public function loadAllFromDB() {
-
 		$sql = "SELECT * FROM user";
-
-		if($result = Self::$connection->query($sql)) {	
-
+		if($result = Self::$connection->query($sql)) {				
 			$row = [];
 			$n = 0;
 			foreach($result as $key => $value) {
 				$row[$key] = $value;
 			}
-
 			return $row;
-
 		} else {
-
 			return false;
+		}
+	}
+
+	public function saveToDB() {
+
+		if($this->id == -1) {
+
+			$sql  = "INSERT INTO ";
+			$sql .= "user (address_id,name,surname,credits,pass) VALUES";
+			$sql .= "($this->addressId,'$this->name','$this->surname',$this->credits,'$this->hashedPassword')";
+
+			if($result = Self::$connection->query($sql)) {	
+				return true;
+			} else {
+				return false;
+			}			
+		} else {
+				$sql = "UPDATE user 
+								SET addressId=$this->addressId, name='$this->name', surname='$this->surname', credits=$this->credits,
+								WHERE id=$this->id";
+
+				if($result = Self::$connection->query($sql)) {	
+					return true;
+				} else {
+					return false;
+				}	
 
 		}
 	}
 
+  static public function deleteFromDB($id) {
+  	$sql = "DELETE FROM user WHERE id=$id LIMIT 1";
+		if($result = Self::$connection->query($sql)) {	
+			return true;
+		} else {
+			return false;
+		}	
+  }
+
 }
+
+//User::loadAllFromDB();
+
+// $oUser = new User();
+// $oUser->setAddressId(3);
+// $oUser->setName('Imie');
+// $oUser->setSurname('Nazwisko');
+// $oUser->setCredits(50);
+// $oUser->setHashedPassword('secret');
+
+// $oUser->saveToDB();
 
 ?>

@@ -1,6 +1,9 @@
 <?php
 
 require('class/User.php');
+require('class/Address.php');
+require('class/Parcel.php');
+require('class/Size.php');
 
 $host = "localhost";
 $db = "paczkolab";
@@ -12,5 +15,8 @@ $connection = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $passwo
 );
 
 User::$connection = $connection;
+Address::$connection = $connection;
+Parcel::$connection = $connection;
+Size::$connection = $connection;
 
 ?>

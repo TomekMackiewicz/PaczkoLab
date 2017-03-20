@@ -1,36 +1,18 @@
 <?php
 
-$predefinedClasses = get_declared_classes();
+$host = "localhost";
+$db = "paczkolab";
+$user = "paczkolab";
+$password = "paczkolab";
 
-include("../class/User.php");
-include("../class/Address.php");
-include("../class/Parcel.php");
-include("../class/Size.php");
+$connection = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $password, 
+	array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)
+);
+$id = 9;
+  	$sql = "DELETE FROM user WHERE id=$id LIMIT 1";
 
-$myClasses = array_diff(get_declared_classes(), $predefinedClasses);
-
-echo "Klasy:";
-var_dump($myClasses);
-
-echo "Test setterów i getterów:";
-
-foreach($myClasses as $key => $myClass) {
-	$object = new $myClass;
-
-	$methods = get_class_methods($myClass);
-	unset($methods[0]);
-
-	foreach($methods as $method) {
-		if (strpos($method, 'set') !== false) {
-			$object->$method('Test passed.');
-		}
-	}
-	foreach($methods as $method) {
-		if (strpos($method, 'get') !== false) {
-			$object->$method();
-		} 
-	}	
-	var_dump($object);
-}
-
-?>
+		if($result = $connection->query($sql)) {	
+			return true;
+		} else {
+			return false;
+		}	
